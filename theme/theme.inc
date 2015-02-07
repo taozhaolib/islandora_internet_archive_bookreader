@@ -119,6 +119,27 @@ function islandora_internet_archive_bookreader_preprocess_islandora_internet_arc
   ));
   // collapse.js requires form.js to be present.
   drupal_add_js('misc/form.js');
+
+  // *** the following code is for generating the download links *** //
+//  $book = $data_array[islandoraInternetArchiveBookReader][book];
+//  $pageInfo = Array();
+//  foreach($variables['pages'] as $page_pid => $info){
+//      $pageInfo[$page_pid]["medium_size"] = url("islandora/object/{$page_pid}/datastream/JPG/download");
+//      $pageInfo[$page_pid]["thumbnail"] = url("islandora/object/{$page_pid}/datastream/TN/download");
+//      $pageInfo[$page_pid]["tiff_size"] = url("islandora/object/{$page_pid}/datastream/OBJ/download");
+//      $pageInfo[$page_pid]["book"] = $book;
+//  }
+//  
+  $download_settings = array(
+    'div' => "#pageview"
+  );
+
+  drupal_add_js(array('islandora_internet_archive_bookreader' => $download_settings), 'setting');
+  
+  drupal_add_js("$module_path/js/book_page_download.js", array(
+    'group' => JS_THEME,
+  ));
+  drupal_add_css("$module_path/css/book_page_download.css");
 }
 
 /**
