@@ -119,7 +119,7 @@ function islandora_internet_archive_bookreader_preprocess_islandora_internet_arc
   ));
   // collapse.js requires form.js to be present.
   drupal_add_js('misc/form.js');
-
+  
   // *** the following code is for generating the download links *** //
 
   $download_settings = array(
@@ -132,6 +132,44 @@ function islandora_internet_archive_bookreader_preprocess_islandora_internet_arc
     'group' => JS_THEME,
   ));
   drupal_add_css("$module_path/css/book_page_download.css");
+  
+  // the following code adds the social links //
+  $bookreader_social_link_settings = array(
+    'bookHostDivName' => "bookSocialLinkDiv",
+    'bookPrecedingDivName' => "",
+    'bookNextDivName' => "booklink",
+    'pageHostDivName' => "pageSocialLinkDiv",
+    'pagePrecedingDivName' => "",
+    'pageNextDivName' => "pageview",
+    'bookTitle' => $object->label,
+    'bookUrl' => url($base_url."/islandora/object/".$object->id,array('absolute' => true)),
+    'bookUrlText' => t($base_url."/islandora/object/".$object->id),
+    'pageUrl' => '',
+    'pageImgUrl' => '',
+    'PageDesc' => '',
+    'bookDesc' => 'Introduction to this book: amazing book'
+  );
+  
+  drupal_add_js(array('islandora_book_reader_socialLinks' => $bookreader_social_link_settings), 'setting');
+  
+  $social_link_settings = array(
+      'socialLinkType' => 'website',
+      'socialLinkImgWidth' => '300',
+      'socialLinkImgHeight' => '300',
+      'socialLinkTypes' => 'fb,tw,pi',
+      'fbId' => '534924973316459'
+  );
+  drupal_add_js(array('islandora_socialLinks' => $social_link_settings), 'setting');
+  
+  drupal_add_js("$module_path/js/book_reader_social_links.js", array(
+    'group' => JS_THEME,
+  ));
+  
+  $social_link_module_path = drupal_get_path('module', 'islandora');
+  drupal_add_js("$social_link_module_path/js/social_link.js", array(
+    'group' => JS_THEME,
+  ));
+  
 }
 
 /**
