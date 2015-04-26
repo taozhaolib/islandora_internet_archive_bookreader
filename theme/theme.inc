@@ -169,7 +169,7 @@ function islandora_internet_archive_bookreader_preprocess_islandora_internet_arc
   drupal_add_js("$social_link_module_path/js/social_link.js", array(
     'group' => JS_THEME,
   ));
-  
+
 }
 
 /**
